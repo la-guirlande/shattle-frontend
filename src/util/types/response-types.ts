@@ -35,6 +35,24 @@ export interface UserInfoResponse extends Response {
 }
 
 /**
+ * Users response data interface.
+ * 
+ * This API response is returned by `GET /users`.
+ */
+export interface UsersResponse extends Response {
+    users: UserData[];
+}
+
+/**
+ * User response data interface.
+ * 
+ * This API response is returned by `GET /users/:id`.
+ */
+export interface UserResponse extends Response {
+    user: UserData;
+}
+
+/**
  * Signin response data interface.
  * 
  * This API response is returned by `POST /auth/signin`.
