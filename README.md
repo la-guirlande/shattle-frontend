@@ -1,16 +1,23 @@
 # Shattle - Frontend
 
-## Project setup
+Shattle est un jeu-vidéo développé en PWA (React).
+
+
+## Installer les dépendances
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
+### Compiler et hot-reload pour développer
 ```
 npm run serve
 ```
 
-### Compiles and minifies for production
+### Compiler et compresser pour la production
 ```
 npm run build
 ```
+
+## Gestion du cache
+
+Dans un premier temps, l'access token sera stocké dans le local storage, puis, les données du jeu (maps, parties en cours) seront stockées via IndexedDB.
