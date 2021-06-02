@@ -1,7 +1,6 @@
-import { Socket } from 'socket.io-client';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
+import io, { Socket } from 'socket.io-client';
 import { Config } from '../../util/config';
-import io from 'socket.io-client';
 
 /**
  * Websocket context state interface.
