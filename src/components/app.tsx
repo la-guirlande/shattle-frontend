@@ -6,6 +6,7 @@ import { HomePage } from '../pages/home-page';
 import { JoinGamePage } from '../pages/join-game-page';
 import { AuthenticationContextProvider as AuthenticationProvider } from './contexts/authentication-context';
 import { WebsocketProvider } from './contexts/websocket-context';
+import { GameContainer } from './game/game-container';
 
 const App: React.FC = () => (
   <AuthenticationProvider>
@@ -14,6 +15,9 @@ const App: React.FC = () => (
         <Switch>
           <Route exact path='/'>
             <HomePage />
+          </Route>
+          <Route exact path='/game'>
+            <GameContainer />
           </Route>
           <Route exact path='/createGame'>
             <CreateGamePage />

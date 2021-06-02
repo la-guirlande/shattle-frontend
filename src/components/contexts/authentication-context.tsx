@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Status, useQuery } from '../../hooks/query-hooks';
 import { Config } from '../../util/config';
 import { LocalStorageKey } from '../../util/local-storage';
-import { UserData } from '../../util/types/data-types'
+import { UserData } from '../../util/types/data-types';
 import { UserResponse } from '../../util/types/response-types';
 
 /**

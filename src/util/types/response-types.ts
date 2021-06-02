@@ -1,10 +1,10 @@
-import { ErrorData, UserData } from './data-types';
+import { ErrorData, GameData, MapData, UserData } from './data-types';
 
 /**
  * Base API response data interface.
  */
 export interface Response {
-    [key: string]: any;
+  [key: string]: any;
 };
 
 /**
@@ -13,7 +13,7 @@ export interface Response {
  * This API response is returned by any `POST` that creates a new resource.
  */
 export interface CreationResponse extends Response {
-    id: string;
+  id: string;
 }
 
 /**
@@ -22,7 +22,7 @@ export interface CreationResponse extends Response {
  * This API response is returned when any errors occurs.
  */
 export interface ErrorResponse extends Response {
-    errors: ErrorData[];
+  errors: ErrorData[];
 }
 
 /**
@@ -31,7 +31,7 @@ export interface ErrorResponse extends Response {
  * This API response is returned by `GET /users/userinfo`.
  */
 export interface UserInfoResponse extends Response {
-    user: UserData;
+  user: UserData;
 }
 
 /**
@@ -40,7 +40,7 @@ export interface UserInfoResponse extends Response {
  * This API response is returned by `GET /users`.
  */
 export interface UsersResponse extends Response {
-    users: UserData[];
+  users: UserData[];
 }
 
 /**
@@ -49,7 +49,43 @@ export interface UsersResponse extends Response {
  * This API response is returned by `GET /users/:id`.
  */
 export interface UserResponse extends Response {
-    user: UserData;
+  user: UserData;
+}
+
+/**
+ * Maps response data interface.
+ * 
+ * This API response is returned by `GET /maps`.
+ */
+export interface MapsResponse extends Response {
+  maps: MapData[];
+}
+
+/**
+ * Map response data interface.
+ * 
+ * This API response is returned by `GET /maps/:id`.
+ */
+export interface MapResponse extends Response {
+  map: MapData;
+}
+
+/**
+ * Games response data interface.
+ * 
+ * This API response is returned by `GET /games`.
+ */
+export interface GamesResponse extends Response {
+  games: GameData[];
+}
+
+/**
+ * Game response data interface.
+ * 
+ * This API response is returned by `GET /games/:id`.
+ */
+export interface GameResponse extends Response {
+  game: GameData;
 }
 
 /**
@@ -58,8 +94,8 @@ export interface UserResponse extends Response {
  * This API response is returned by `POST /auth/signin`.
  */
 export interface SigninResponse extends Response {
-    access_token: string;
-    refresh_token: string;
+  access_token: string;
+  refresh_token: string;
 }
 
 /**
@@ -68,8 +104,8 @@ export interface SigninResponse extends Response {
  * This API response is returned by `POST /auth/signup`.
  */
 export interface SignupResponse extends Response {
-    access_token: string;
-    refresh_token: string;
+  access_token: string;
+  refresh_token: string;
 }
 
 /**
@@ -78,5 +114,5 @@ export interface SignupResponse extends Response {
  * This API response is returned by `POST /auth/refreshToken`.
  */
 export interface RefreshTokenResponse extends Response {
-    access_token: string;
+  access_token: string;
 }
