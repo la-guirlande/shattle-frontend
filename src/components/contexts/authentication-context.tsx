@@ -34,9 +34,10 @@ export const AuthenticationContextProvider: React.FC = (props) => {
         break;
       case Status.SUCCESS:
         setAuthUser(userInfoQuery.response.user);
+        console.log('User', userInfoQuery.response.user.name, 'authenticated with access token');
         break;
       case Status.ERROR:
-        console.error(userInfoQuery.errorResponse.errors);
+        console.error('Could not authenticate :', userInfoQuery.errorResponse.errors);
         break;
     }
   }, [userInfoQuery.status]);
