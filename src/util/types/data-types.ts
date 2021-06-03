@@ -1,4 +1,13 @@
 /**
+ * ID interface.
+ * 
+ * This interface is used with data interfaces that have IDs by extending this.
+ */
+interface ID {
+  id: string;
+}
+
+/**
  * Timestamps interface.
  * 
  * This interface is used with data interfaces that have timestamps by extending this.
@@ -11,8 +20,7 @@ interface TimeStamps {
 /**
  * User data interface.
  */
-export interface UserData extends TimeStamps {
-  id: string;
+export interface UserData extends ID, TimeStamps {
   name: string;
   role: string;
 }
@@ -20,7 +28,7 @@ export interface UserData extends TimeStamps {
 /**
  * Map data interface.
  */
-export interface MapData extends TimeStamps {
+export interface MapData extends ID, TimeStamps {
   name: string;
   config: {
     width: number;
@@ -102,7 +110,7 @@ export interface GameObjectData {
 /**
  * Game data.
  */
-export interface GameData {
+export interface GameData extends ID {
   status?: GameStatus;
   code?: string;
   map: MapData;
