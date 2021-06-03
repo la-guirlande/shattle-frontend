@@ -39,6 +39,9 @@ export interface MapData extends ID, TimeStamps {
     tilesets: ConfigTilesetData[];
   };
   tilesets: TilesetData[];
+  maxPlayers: number;
+  mapTiles: TileData[];
+  tilesetTiles: TileData[];
 }
 
 /**
@@ -59,6 +62,17 @@ export interface MapData extends ID, TimeStamps {
 export interface TilesetData {
   name: string;
   data: string;
+}
+
+/**
+ * Map tiles data.
+ */
+export interface TileData {
+  id: number;
+  x: number;
+  y: number;
+  width: number;
+  height: number;
 }
 
 /**
