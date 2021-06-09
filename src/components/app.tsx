@@ -1,12 +1,10 @@
 import React from 'react';
-import { Switch } from 'react-router';
-import { BrowserRouter, Route } from 'react-router-dom';
-import { CreateGamePage } from '../pages/create-game-page';
-import { HomePage } from '../pages/home-page';
-import { JoinGamePage } from '../pages/join-game-page';
 import { AuthenticationContextProvider as AuthenticationProvider } from './contexts/authentication-context';
-import { WebsocketProvider } from './contexts/websocket-context';
+import { BrowserRouter, Route } from 'react-router-dom';
 import { GameContainer } from './game/game-container';
+import { LobbyPage } from '../pages/lobby-page';
+import { Switch } from 'react-router';
+import { WebsocketProvider } from './contexts/websocket-context';
 
 const App: React.FC = () => (
   <AuthenticationProvider>
@@ -14,19 +12,13 @@ const App: React.FC = () => (
       <BrowserRouter>
         <Switch>
           <Route exact path='/'>
-            <HomePage />
+            {/* <AuthenticationPage /> */}
+          </Route>
+          <Route exact path='/lobby'>
+            <LobbyPage />
           </Route>
           <Route exact path='/game'>
             <GameContainer />
-          </Route>
-          <Route exact path='/createGame'>
-            <CreateGamePage />
-          </Route>
-          <Route exact path='/joinGame'>
-            <JoinGamePage />
-          </Route>
-          <Route exact path='/settings'>
-            <JoinGamePage />
           </Route>
         </Switch>
       </BrowserRouter>
