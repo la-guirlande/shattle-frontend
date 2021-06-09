@@ -4,8 +4,7 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                iceland: ['"iceland"'],
-                secondary: [],
+                iceland: ['Iceland-Regular']
             },
             colors: {
                 primary: '#523295',
@@ -16,10 +15,9 @@ module.exports = {
                     Dark: '#0A123C'
                 }
             },
-            // backgroundImage: {
-            //     'logo-play': "url('assets/img/jouer.png')",
-            //     'logo-shattle': "url('assets/img/shattle.png')"
-            // }
+            backgroundImage: {
+                'map': "url('assets/img/map.png')"
+            }
         },
     },
     variants: {
