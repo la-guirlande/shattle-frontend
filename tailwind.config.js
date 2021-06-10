@@ -4,7 +4,7 @@ module.exports = {
     theme: {
         extend: {
             fontFamily: {
-                iceland: ['Iceland-Regular']
+                iceland: ['Iceland', 'Arial', 'sans-serif']
             },
             colors: {
                 primary: '#523295',
@@ -16,7 +16,7 @@ module.exports = {
                 }
             },
             backgroundImage: {
-                'map': "url('assets/img/map.png')"
+                'map': "url('assets/img/map.png')" // Stockages des maps pour les utiliser comme background ???
             }
         },
     },
