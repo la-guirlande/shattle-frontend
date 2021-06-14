@@ -23,6 +23,9 @@ export interface SignUpFormProps {
     handleSignUp(): void;
 }
 
+/**
+ * Sign Up validation schema
+ */
 const signUpSchema = yup.object().shape({
     email: yup.string().required('Ce champ est requis'),
     name: yup.string().required(''),
@@ -40,38 +43,6 @@ export const SignUp: React.FC<SignUpFormProps> = ({ showSignUp, handleSignUp, on
         resolver: yupResolver(signUpSchema),
         mode: 'onBlur'
     });
-
-    // const emailRegister = register({
-    //     required: {
-    //         value: true,
-    //         message: 'Ce champ est requis'
-    //     },
-    //     pattern: {
-    //         value: /\S+@\S+\.\S+/,
-    //         message: 'Ce champ doit contenir une adresse mail'
-    //     }
-    // });
-    // const nameRegister = register({
-    //     required: {
-    //         value: true,
-    //         message: 'Ce champ est requis'
-    //     },
-    // });
-    // const passwordRegister = register({
-    //     required: {
-    //         value: true,
-    //         message: 'Ce champ est requis'
-    //     }
-    // });
-    // const confirmPasswordRegister = register({
-    //     required: {
-    //         value: true,
-    //         message: 'Ce champ est requis'
-    //     },
-    //     validate: {
-    //         value: value => value === watch('password') || 'Les mots de passe ne correspondent pas'
-    //     }
-    // });
 
     return (
         <form onSubmit={handleSubmit(data => onSubmit(data))}>

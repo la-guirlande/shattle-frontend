@@ -4,8 +4,8 @@ import { Status, useQuery } from '../../hooks/query-hooks';
 import { LocalStorageKey } from '../../util/local-storage';
 import { CreationResponse, RefreshTokenResponse, UserInfoResponse } from '../../util/types/response-types';
 import { AuthenticationContext } from '../contexts/authentication-context';
-import { SignIn, SignInFormValues } from './sign-in-component';
-import { SignUp, SignUpFormValues } from './sign-up-component';
+import { SignIn, SignInFormValues } from './sign-in';
+import { SignUp, SignUpFormValues } from './sign-up';
 
 export const AuthenticationContainer: React.FC = () => {
     const authenticationContext = useContext(AuthenticationContext);

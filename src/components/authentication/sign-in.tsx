@@ -22,7 +22,7 @@ export interface SignInFormProps {
 }
 
 /**
- * 
+ * Sign In validation schema
  */
 const signInSchema = yup.object().shape({
     email: yup.string().required('Ce champ est requis').email('Ce champ doit contenir une adresse mail'),
