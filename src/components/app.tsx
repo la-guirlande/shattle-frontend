@@ -3,6 +3,7 @@ import { AuthenticationContextProvider as AuthenticationProvider } from './conte
 import { BrowserRouter, Route } from 'react-router-dom';
 import { GameContainer } from './game/game-container';
 import { LobbyPage } from '../pages/lobby-page';
+import { LoginPage } from '../pages/login-page';
 import { Switch } from 'react-router';
 import { WebsocketProvider } from './contexts/websocket-context';
 
@@ -12,7 +13,7 @@ const App: React.FC = () => (
       <BrowserRouter>
         <Switch>
           <Route exact path='/'>
-            {/* <AuthenticationPage /> */}
+            <LoginPage />
           </Route>
           <Route exact path='/lobby'>
             <LobbyPage />
