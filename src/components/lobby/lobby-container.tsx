@@ -16,7 +16,7 @@ export const LobbyContainer: React.FC = () => {
     useEffect(() => {
         switch (gamesQuery.status) {
             case Status.INIT:
-                gamesQuery.get(`${Config}/users/${auth.authUser?.id}/games`);
+                gamesQuery.get(`${Config.API_URL}/users/${auth.authUser?.id}/games`);
                 break;
             case Status.SUCCESS:
                 setGames(gamesQuery.response?.games);
