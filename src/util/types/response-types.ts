@@ -109,10 +109,10 @@ export interface SignupResponse extends Response {
 }
 
 /**
- * Refresh token response data interface.
+ * Access token response data interface.
  * 
- * This API response is returned by `POST /auth/refreshToken`.
+ * This API response is returned by `POST /auth/accessToken`.
  */
-export interface RefreshTokenResponse extends Response {
+export interface AccessTokenResponse extends Response {
   access_token: string;
 }

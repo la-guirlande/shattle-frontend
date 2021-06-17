@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Status, useQuery } from '../../hooks/query-hooks';
 import { LocalStorageKey } from '../../util/local-storage';
-import { CreationResponse, RefreshTokenResponse, UserInfoResponse } from '../../util/types/response-types';
+import { CreationResponse, AccessTokenResponse, UserInfoResponse } from '../../util/types/response-types';
 import { AuthenticationContext } from '../contexts/authentication-context';
 import { SignIn, SignInFormValues } from './sign-in';
 import { SignUp, SignUpFormValues } from './sign-up';
@@ -12,7 +12,7 @@ export const AuthenticationContainer: React.FC = () => {
     const [currentSigninValues, setCurrentSigninValues] = useState<SignInFormValues>(null);
     const [showSignUp, setShowSignUp] = useState<boolean>(true);
     const addUserQuery = useQuery<CreationResponse>();
-    const refreshTokenQuery = useQuery<RefreshTokenResponse>();
+    const refreshTokenQuery = useQuery<AccessTokenResponse>();
     const userInfoQuery = useQuery<UserInfoResponse>();
     const history = useHistory();
 
