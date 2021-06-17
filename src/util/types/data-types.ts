@@ -23,7 +23,6 @@ interface TimeStamps {
 export interface UserData extends ID, TimeStamps {  
   name: string;
   role: string;
-  games: GameData[];
 }
 
 /**
