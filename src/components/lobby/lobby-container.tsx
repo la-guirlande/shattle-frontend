@@ -14,16 +14,18 @@ export const LobbyContainer: React.FC = () => {
     const gamesQuery = useQuery<GamesResponse>();
 
     useEffect(() => {
-        switch (gamesQuery.status) {
-            case Status.INIT:
-                gamesQuery.get(`${Config.API_URL}/users/${auth.authUser?.id}/games`);
-                break;
-            case Status.SUCCESS:
-                setGames(gamesQuery.response?.games);
-                break;
-            default: break;
+        if (auth.authUser) {
+            switch (gamesQuery.status) {
+                case Status.INIT:
+                    gamesQuery.get(`${Config.API_URL}/users/${auth.authUser?.id}/games`);
+                    break;
+                case Status.SUCCESS:
+                    setGames(gamesQuery.response?.games);
+                    break;
+                default: break;
+            }
         }
-    }, [gamesQuery.status]);
+    }, [gamesQuery.status, auth.authUser]);
 
     const handleLaunchGame = (data: GameData) => {
         //TODO:  A rédiger
