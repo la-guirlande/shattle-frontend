@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Iceland&display=swap%27');
+#map {
+    background-image: url('/src/assets/img/map.png');
+    background-size: cover;
+}
+
+#map-game {
+    background-image: url('/src/assets/img/map.png');
+    background-position: center;
+    background-size: cover;
+}

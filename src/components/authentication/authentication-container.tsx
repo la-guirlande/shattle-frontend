@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Status, useQuery } from '../../hooks/query-hooks';
+import { Config } from '../../util/config';
 import { LocalStorageKey } from '../../util/local-storage';
 import { CreationResponse, AccessTokenResponse, UserInfoResponse } from '../../util/types/response-types';
 import { AuthenticationContext } from '../contexts/authentication-context';
@@ -21,7 +22,7 @@ export const AuthenticationContainer: React.FC = () => {
             case Status.SUCCESS:
                 localStorage.setItem(LocalStorageKey.REFRESH_TOKEN, refreshTokenQuery.response.refresh_token);
                 localStorage.setItem(LocalStorageKey.ACCESS_TOKEN, refreshTokenQuery.response.access_token);
-                userInfoQuery.get(`http://localhost/users/info`, {
+                userInfoQuery.get(`${Config.API_URL}/users/info`, {
                     headers: { Authorization: `Bearer ${localStorage.getItem(LocalStorageKey.ACCESS_TOKEN)}` }
                 });
                 break;
@@ -40,7 +41,7 @@ export const AuthenticationContainer: React.FC = () => {
     useEffect(() => {
         switch (addUserQuery.status) {
             case Status.SUCCESS:
-                refreshTokenQuery.post(`http://localhost/auth/refreshToken`, currentSigninValues);
+                refreshTokenQuery.post(`${Config.API_URL}/auth/refreshToken`, currentSigninValues);
                 break;
             case Status.ERROR:
                 console.log(addUserQuery.errorResponse.errors)
@@ -53,11 +54,11 @@ export const AuthenticationContainer: React.FC = () => {
     }
 
     const handleSubmitSignInForm = (data: SignInFormValues) => {
-        refreshTokenQuery.post(`http://localhost/auth/refreshToken`, data);
+        refreshTokenQuery.post(`${Config.API_URL}/auth/refreshToken`, data);
     }
 
     const handleSubmitSignUpForm = (data: SignUpFormValues) => {
-        addUserQuery.post(`http://localhost/users`, {
+        addUserQuery.post(`${Config.API_URL}/users`, {
             email: data.email,
             name: data.name,
             password: data.password

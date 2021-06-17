@@ -13,8 +13,6 @@ export const LoginPage: React.FC = () => {
     }, []);
 
     return (
-        <div className='bg-map'>
-            <AuthenticationContainer />
-        </div>
+        <AuthenticationContainer />
     )
 }
