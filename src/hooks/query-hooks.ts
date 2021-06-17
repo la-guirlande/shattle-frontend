@@ -7,6 +7,7 @@ import { Response, ErrorResponse } from '../util/types/response-types';
  */
 export type Query<R extends Response> = {
   status: Status;
+  code: number;
   response: R;
   errorResponse: ErrorResponse;
   get: (url: string, config?: AxiosRequestConfig) => void;
@@ -35,6 +36,7 @@ export enum Status {
  */
 export const useQuery = <R extends Response>(): Query<R> => {
   const [status, setStatus] = useState<Status>(Status.INIT);
+  const [code, setCode] = useState(0);
   const [response, setResponse] = useState<R>(null);
   const [errorResponse, setErrorResponse] = useState<ErrorResponse>(null);
 
@@ -65,6 +67,7 @@ export const useQuery = <R extends Response>(): Query<R> => {
 
   function handleResponse(res: AxiosResponse<R>) {
     setResponse(res.data);
+    setCode(res.status);
     setStatus(Status.SUCCESS);
   }
 
@@ -72,11 +75,11 @@ export const useQuery = <R extends Response>(): Query<R> => {
     if (err.message === 'Network Error') {
       setErrorResponse({ errors: [{ error: 'access_denied', error_description: 'Could not connect to server' }] } as ErrorResponse);
     } else {
-      console.log(err);
       setErrorResponse(err.response.data);
     }
+    setCode(err.response.status);
     setStatus(Status.ERROR);
   }
 
-  return { status, response, errorResponse, get, post, put, patch, delete: del };
+  return { status, code, response, errorResponse, get, post, put, patch, delete: del };
 }
