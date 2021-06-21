@@ -89,6 +89,15 @@ export interface GameResponse extends Response {
 }
 
 /**
+ * Game creation response data interface.
+ * 
+ * This API response is returned by `POST /games`.
+ */
+export interface GameCreationResponse extends CreationResponse {
+  code: string;
+}
+
+/**
  * Signin response data interface.
  * 
  * This API response is returned by `POST /auth/signin`.
