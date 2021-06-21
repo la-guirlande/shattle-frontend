@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { Status, useQuery } from "../../hooks/query-hooks";
 import { GamesResponse } from "../../util/types/response-types";
 import { Config } from "../../util/config";
+import ReturnButton from "../navigation/return-button";
 import { useHistory } from "react-router-dom";
 
 export const LobbyContainer: React.FC = () => {
@@ -37,8 +38,9 @@ export const LobbyContainer: React.FC = () => {
 
     return (
         <div className='bg-gradient-to-b from-secondary to-primary h-screen pt-10'>
+            <ReturnButton />
             {/* Top's section */}
-            <div className='bg-map w-5/6 h-3/6 sm:h-3/6 mx-auto rounded-2xl' id='map'>
+            <div className='mt-8 bg-map w-5/6 h-2/6 sm:h-3/6 mx-auto rounded-2xl' id='map'>
                 {/* Title */}
                 <div className='flex justify-center pt-20 sm:pt-32 lg:pt-40'>
                     <img alt='' className='w-7/12 sm:w-6/12 md:w-3/12 lg:w-4/12' src='/img/shattle.png' />
