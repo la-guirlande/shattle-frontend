@@ -8,7 +8,7 @@ import { Button } from '../button';
 import { AuthenticationContext } from '../contexts/authentication-context';
 import { WebsocketContext } from '../contexts/websocket-context';
 
-export const GameContainer: FC = () => {
+export const PlayContainer: FC = () => {
   const { authUser } = useContext(AuthenticationContext);
   const { socket } = useContext(WebsocketContext);
   const createGameQuery = useQuery<GameCreationResponse>();

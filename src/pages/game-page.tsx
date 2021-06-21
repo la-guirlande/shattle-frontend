@@ -1,5 +1,5 @@
-import { GameContainer } from "../components/game/game-container";
+import { PlayContainer } from "../components/game/play-container";
 
 export const GamePage: React.FC = () => (
-    <GameContainer />
+    <PlayContainer />
 )
