@@ -55,6 +55,9 @@
     ]
   },
   "devDependencies": {
-    "@types/socket.io-client": "^3.0.0"
+    "@types/socket.io-client": "^3.0.0",
+    "eslint": "^7.29.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint-plugin-typescript": "^0.14.0"
   }
 }
