@@ -39,7 +39,7 @@ export const AuthenticationContextProvider: React.FC = (props) => {
         break;
       case Status.ERROR:
         if (userInfoQuery.code === 403) {
-          accessTokenQuery.post(`${Config.API_URL}/auth/accessToken`, { refreshToken: localStorage.getItem(LocalStorageKey.REFRESH_TOKEN) });
+          accessTokenQuery.post(`${Config.API_URL}/auth/accessToken`, { refresh_token: localStorage.getItem(LocalStorageKey.REFRESH_TOKEN) });
         } else {
           console.error('Could not authenticate :', userInfoQuery.errorResponse.errors);
         }
