@@ -1,6 +1,5 @@
 import React, { useContext, useState } from "react";
 import { AuthenticationContext } from "../contexts/authentication-context";
-import { Link } from 'react-router-dom';
 import { ListGames } from "./list-games";
 import { GameData } from "../../util/types/data-types";
 import { useEffect } from "react";
@@ -8,11 +7,13 @@ import { Status, useQuery } from "../../hooks/query-hooks";
 import { GamesResponse } from "../../util/types/response-types";
 import { Config } from "../../util/config";
 import ReturnButton from "../navigation/return-button";
+import { useHistory } from "react-router-dom";
 
 export const LobbyContainer: React.FC = () => {
     const auth = useContext(AuthenticationContext);
     const [games, setGames] = useState<GameData[]>(null);
     const gamesQuery = useQuery<GamesResponse>();
+    const history = useHistory();
 
     useEffect(() => {
         if (auth.authUser) {
@@ -28,8 +29,11 @@ export const LobbyContainer: React.FC = () => {
         }
     }, [gamesQuery.status, auth.authUser]);
 
+    const handlePlayGame = () => {
+        history.push('/game');
+    }
     const handleLaunchGame = (data: GameData) => {
-        //TODO:  A rédiger
+       // TODO: Get game id from list game
     }
 
     return (
@@ -43,11 +47,9 @@ export const LobbyContainer: React.FC = () => {
                 </div>
 
                 {/* Play button */}
-                <div className='flex justify-center pt-12 lg:pt-24 space-y-0'>
-                    <div className='bg-white bg-opacity-50 border-2 border-white rounded-lg'>
-                        <Link to='/game'>
-                            <img className='w-24 sm:w-32 md:w-36 lg:w-48 p-1' src='/img/jouer.png' />
-                        </Link>
+                <div className='flex justify-center pt-12 lg:pt-24 space-y-0' >
+                    <div className='bg-white bg-opacity-50 border-2 border-white rounded-lg' onClick={handlePlayGame}>
+                        <img className='w-24 sm:w-32 md:w-36 lg:w-48 p-1' src='/img/jouer.png'  />
                     </div>
                 </div>
             </div>
