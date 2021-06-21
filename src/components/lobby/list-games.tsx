@@ -18,7 +18,7 @@ export const ListGames: React.FC<ListGamesProps> = (props) => {
                                 <div className="font-iceland text-white text-xl">Partie du </div>
                                 <div className="font-iceland text-white text-sm">Tour de </div>
                             </div>
-                            <div className="font-iceland text-white text-md">Tour {game.status}</div>
+                            <div className="font-iceland text-white text-md">Code: {game.code}</div>
                         </div>
                     </li>
                 ))}
