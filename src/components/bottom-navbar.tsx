@@ -5,13 +5,6 @@ const BottomNavbar: React.FC = () => {
   return (
     <nav className="rounded-t-3xl fixed bottom-0 inset-x-0 bg-purple-100 flex justify-between text-sm text-purple-900 uppercase font-mono">
       
-      {/* Bouton retour */}
-      <Link to="/" className="w-full block rounded-t-3xl py-5 px-3 text-center hover:bg-purple-200 hover:text-purple-800">
-        <svg className="w-6 h-6 mb-2 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
-        </svg>
-      </Link>
-      
       {/* Bouton lobby */}
       <Link to="lobby" className="w-full rounded-t-3xl block py-5 px-3 text-center hover:bg-purple-200 hover:text-purple-800 transition duration-300">
         <svg className="w-6 h-6 mb-2 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -21,10 +14,17 @@ const BottomNavbar: React.FC = () => {
         </svg>
       </Link>
 
-      {/* Bouton setting */}
+      {/* Bouton compte */}
       <Link to="/" className="w-full block rounded-t-3xl py-5 px-3 text-center hover:bg-purple-200 hover:text-purple-800">
         <svg className="w-6 h-6 mb-2 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+        </svg>
+      </Link>
+
+      {/* Bouton setting */}
+      <Link to="/" className="w-full block rounded-t-3xl py-5 px-3 text-center hover:bg-purple-200 hover:text-purple-800">
+        <svg className="w-6 h-6 mb-2 mx-auto" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
         </svg>
       </Link>
     </nav>
