@@ -1,10 +1,11 @@
 import React from 'react';
 import { AuthenticationContextProvider as AuthenticationProvider } from './contexts/authentication-context';
 import { BrowserRouter, Route } from 'react-router-dom';
-import { GameContainer } from './game/game-container';
+import { GamePage } from '../pages/game-page';
 import { LobbyPage } from '../pages/lobby-page';
 import { LoginPage } from '../pages/login-page';
 import { Switch } from 'react-router';
+import { WaitingRoomContainer } from './game/waiting-room-container';
 import { WebsocketProvider } from './contexts/websocket-context';
 
 const App: React.FC = () => (
@@ -19,8 +20,9 @@ const App: React.FC = () => (
             <LobbyPage />
           </Route>
           <Route exact path='/game'>
-            <GameContainer />
+            <GamePage />
           </Route>
+          <Route exact path='/game/:id' component={WaitingRoomContainer} />
         </Switch>
       </BrowserRouter>
     </WebsocketProvider>

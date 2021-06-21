@@ -43,26 +43,31 @@ export const useQuery = <R extends Response>(): Query<R> => {
   const get = (url: string, config?: AxiosRequestConfig) => {
     setStatus(Status.IN_PROGRESS);
     axios.get<R>(url, config).then(handleResponse).catch(handleError);
+    console.log(`Request sended : GET ${url}`);
   }
 
   const post = (url: string, body: unknown, config?: AxiosRequestConfig) => {
     setStatus(Status.IN_PROGRESS);
-    axios.post<R>(url, body, config).then(handleResponse).catch(handleError)
+    axios.post<R>(url, body, config).then(handleResponse).catch(handleError);
+    console.log(`Request sended : POST ${url}`);
   }
 
   const put = (url: string, body: unknown, config?: AxiosRequestConfig) => {
     setStatus(Status.IN_PROGRESS);
-    axios.put<R>(url, body, config).then(handleResponse).catch(handleError)
+    axios.put<R>(url, body, config).then(handleResponse).catch(handleError);
+    console.log(`Request sended : PUT ${url}`);
   }
 
   const patch = (url: string, body: unknown, config?: AxiosRequestConfig) => {
     setStatus(Status.IN_PROGRESS);
-    axios.patch<R>(url, body, config).then(handleResponse).catch(handleError)
+    axios.patch<R>(url, body, config).then(handleResponse).catch(handleError);
+    console.log(`Request sended : PATCH ${url}`);
   }
   
   const del = (url: string, config?: AxiosRequestConfig) => {
     setStatus(Status.IN_PROGRESS);
-    axios.delete<R>(url, config).then(handleResponse).catch(handleError)
+    axios.delete<R>(url, config).then(handleResponse).catch(handleError);
+    console.log(`Request sended : DELETE ${url}`);
   }
 
   function handleResponse(res: AxiosResponse<R>) {
