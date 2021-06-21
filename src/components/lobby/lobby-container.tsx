@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import { Status, useQuery } from "../../hooks/query-hooks";
 import { GamesResponse } from "../../util/types/response-types";
 import { Config } from "../../util/config";
-import ReturnButton from "../return-button";
+import ReturnButton from "../navigation/return-button";
 
 export const LobbyContainer: React.FC = () => {
     const auth = useContext(AuthenticationContext);
