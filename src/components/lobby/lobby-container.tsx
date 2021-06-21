@@ -7,6 +7,7 @@ import { useEffect } from "react";
 import { Status, useQuery } from "../../hooks/query-hooks";
 import { GamesResponse } from "../../util/types/response-types";
 import { Config } from "../../util/config";
+import ReturnButton from "../return-button";
 
 export const LobbyContainer: React.FC = () => {
     const auth = useContext(AuthenticationContext);
@@ -33,6 +34,7 @@ export const LobbyContainer: React.FC = () => {
 
     return (
         <div className='bg-gradient-to-b from-secondary to-primary h-screen pt-10'>
+            <ReturnButton />
             {/* Top's section */}
             <div className='bg-map w-5/6 h-2/6 sm:h-3/6 mx-auto rounded-2xl' id='map'>
                 {/* Title */}
