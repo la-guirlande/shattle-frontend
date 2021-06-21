@@ -7,6 +7,7 @@ import { LoginPage } from '../pages/login-page';
 import { Switch } from 'react-router';
 import { WaitingRoomContainer } from './game/waiting-room-container';
 import { WebsocketProvider } from './contexts/websocket-context';
+import { GameContainer } from './game/game-container';
 
 const App: React.FC = () => (
   <AuthenticationProvider>
@@ -22,7 +23,7 @@ const App: React.FC = () => (
           <Route exact path='/game'>
             <GamePage />
           </Route>
-          <Route exact path='/game/:id' component={WaitingRoomContainer} />
+          <Route exact path='/game/:gameId' component={GameContainer} />
         </Switch>
       </BrowserRouter>
     </WebsocketProvider>
