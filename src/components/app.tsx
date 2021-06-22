@@ -1,11 +1,10 @@
 import React from 'react';
-import { AuthenticationContextProvider as AuthenticationProvider } from './contexts/authentication-context';
+import { Switch } from 'react-router';
 import { BrowserRouter, Route } from 'react-router-dom';
 import { GamePage } from '../pages/game-page';
 import { LobbyPage } from '../pages/lobby-page';
 import { LoginPage } from '../pages/login-page';
-import { Switch } from 'react-router';
-import { WaitingRoomContainer } from './game/waiting-room-container';
+import { AuthenticationContextProvider as AuthenticationProvider } from './contexts/authentication-context';
 import { WebsocketProvider } from './contexts/websocket-context';
 import { GameContainer } from './game/game-container';
 
