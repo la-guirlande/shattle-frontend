@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { FC, useContext } from "react";
 import { GameData } from "../../util/types/data-types";
 import { Button } from "../button";
@@ -11,6 +12,15 @@ export interface WaitingRoomContainerProps {
 export const WaitingRoomContainer: FC<WaitingRoomContainerProps> = ({ game }) => {
     const { authUser } = useContext(AuthenticationContext);
     const { socket } = useContext(WebsocketContext);
+
+    useEffect(() => {
+        socket.on('game.start', console.log);
+        socket.on('error', console.error);
+        return () => {
+            socket.off('game.start');
+            socket.off('error');
+        }
+    }, []);
 
     const handleStartGame = () => {
         socket.emit('game.start', { userId: authUser.id, gameId: game.id });
