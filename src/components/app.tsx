@@ -1,7 +1,6 @@
 import React from 'react';
 import { Switch } from 'react-router';
 import { BrowserRouter, Route } from 'react-router-dom';
-import { GamePage } from '../pages/game-page';
 import { LobbyPage } from '../pages/lobby-page';
 import { LoginPage } from '../pages/login-page';
 import { AuthenticationContextProvider as AuthenticationProvider } from './contexts/authentication-context';
@@ -20,9 +19,8 @@ const App: React.FC = () => (
             <LobbyPage />
           </Route>
           <Route exact path='/game'>
-            <GamePage />
+            <GameContainer />
           </Route>
-          <Route exact path='/game/:gameId' component={GameContainer} />
         </Switch>
       </BrowserRouter>
     </WebsocketProvider>
