@@ -1,4 +1,4 @@
-import { ErrorData, GameData, MapData, UserData } from './data-types';
+import { ErrorData, GameData, HistoryData, MapData, UserData } from './data-types';
 
 /**
  * Base API response data interface.
@@ -88,6 +88,14 @@ export interface GameResponse extends Response {
   game: GameData;
 }
 
+/**
+ * History response data interface.
+ * 
+ * This API response is returned by `GET /games`.
+ */
+ export interface HistoryResponse extends Response {
+  history: HistoryData[];
+}
 /**
  * Signin response data interface.
  * 
