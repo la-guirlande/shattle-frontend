@@ -12,7 +12,7 @@ import { Status, useQuery } from './query-hooks'
  * @param gameId Game ID
  * @returns [Game, refresh function]
  */
-export const useGame = (gameId: string): [GameData, () => void] => {
+export const useGame = (gameId?: string): [GameData, (gameId?: string) => void] => {
   const gameQuery = useQuery<GameResponse>();
   const [game, setGame] = useState<GameData>(null);
 
@@ -30,8 +30,10 @@ export const useGame = (gameId: string): [GameData, () => void] => {
     }
   }, [gameQuery.status]);
 
-  function refresh() {
-    gameQuery.get(`${Config.API_URL}/games/${gameId}`);
+  function refresh(refreshGameId?: string) {
+    if (refreshGameId != null || gameId != null) {
+      gameQuery.get(`${Config.API_URL}/games/${refreshGameId || gameId}`);
+    }
   }
 
   return [game, refresh];
