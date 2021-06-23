@@ -12,14 +12,20 @@ import { PlayingContainer } from './playing-container';
 import { WaitingRoomContainer } from './waiting-room-container';
 
 export interface GameContainerProps {
-  id: string;
+  code: string;
 }
 
-export const GameContainer: FC<GameContainerProps> = ({ id }) => {
+export const GameContainer: FC<GameContainerProps> = ({ code }) => {
   const { authUser } = useContext(AuthenticationContext);
   const { socket } = useContext(WebsocketContext);
   const createGameQuery = useQuery<GameCreationResponse>();
-  const [game, refreshGame] = useGame(id);
+  const [game, refreshGame] = useGame();
+
+  useEffect(() => {
+    if (code) {
+      handleJoinGame(code);
+    }
+  }, []);
 
   useEffect(() => {
     if (socket != null) {
@@ -63,7 +69,7 @@ export const GameContainer: FC<GameContainerProps> = ({ id }) => {
 
   return (
     <>
-      { game == null && <PlayContainer onCreate={handleCreateGame} onJoin={handleJoinGame} /> }
+      {game == null && <PlayContainer onCreate={handleCreateGame} onJoin={handleJoinGame} />}
       {game && game.status === GameStatus.WAITING && <WaitingRoomContainer game={game} onStartGame={handleStartGame} />}
       {game && game.status === GameStatus.IN_PROGRESS && <PlayingContainer game={game} />}
     </>

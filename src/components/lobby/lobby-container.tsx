@@ -35,7 +35,7 @@ export const LobbyContainer: React.FC = () => {
     const handleLaunchGame = (game: GameData) => {
         history.push({
             pathname: '/game',
-            search: `?id=${game.id}`
+            search: `?code=${game.code}`
         });
     }
 
