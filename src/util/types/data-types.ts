@@ -20,7 +20,7 @@ interface TimeStamps {
 /**
  * User data interface.
  */
-export interface UserData extends ID, TimeStamps {  
+export interface UserData extends ID, TimeStamps {
   name: string;
   role: string;
 }
@@ -47,7 +47,7 @@ export interface MapData extends ID, TimeStamps {
 /**
  * Map configuration data.
  */
- export interface ConfigData {
+export interface ConfigData {
   width: number;
   height: number;
   tilewidth: number;
@@ -125,10 +125,13 @@ export interface GameObjectData {
  * Game data.
  */
 export interface GameData extends ID {
+  author: UserData;
+  currentPlayer: UserData;
   status?: GameStatus;
   code?: string;
   map: MapData;
   players: UserData[];
+  history?: HistoryData[];
 }
 
 /**
@@ -138,6 +141,47 @@ export enum GameStatus {
   WAITING = 0,
   IN_PROGRESS = 1,
   FINISHED = 2
+}
+
+export interface HistoryData {
+  player: UserData;
+  actions: ActionData[];
+}
+
+/**
+ * Game history action.
+ */
+ export interface ActionData {
+  type: ActionType;
+  to?: number;
+  spell?: Spell;
+  direction?: Direction;
+}
+
+/**
+ * Action type.
+ */
+export enum ActionType {
+  MOVE = 0,
+  SPELL = 1
+}
+
+/**
+ * Spell.
+ */
+export enum Spell {
+  BASIC = 0
+}
+
+/**
+ * Direction.
+ */
+export enum Direction {
+  SELF = 0,
+  NORTH = 1,
+  EAST = 2,
+  SOUTH = 3,
+  WEST = 4
 }
 
 /**

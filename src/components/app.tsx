@@ -18,8 +18,7 @@ const App: React.FC = () => (
           <Route exact path='/lobby'>
             <LobbyPage />
           </Route>
-          <Route exact path='/game'>
-            <GamePage />
+          <Route exact path='/game' component={GamePage}>
           </Route>
         </Switch>
       </BrowserRouter>
