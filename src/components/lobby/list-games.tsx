@@ -1,5 +1,5 @@
 import { AuthenticationContext } from "../contexts/authentication-context";
-import { GameData } from "../../util/types/data-types";
+import { GameData, GameStatus } from "../../util/types/data-types";
 import { useContext } from "react";
 
 export interface ListGamesProps {
@@ -19,7 +19,10 @@ export const ListGames: React.FC<ListGamesProps> = (props) => {
                             <div className="flex flex-col border-black border-2 rounded-md w-10 h-10 bg-blue-Dark bg-opacity-75 justify-center items-center mr-4">💧</div>
                             <div className="flex-1 pl-1">
                                 <div className="font-iceland text-white text-md">
-                                    {game.currentPlayer?.id === authUser?.id ? `C'est votre tour !` : `C'est le tour de ${game.currentPlayer?.name} !`}
+                                    {game.status === GameStatus.WAITING ?
+                                        'Cette partie n\'a pas débuté.'
+                                        :
+                                        game.currentPlayer?.id === authUser?.id ? `C'est votre tour !` : `C'est le tour de ${game.currentPlayer?.name} !`}
                                 </div>
                                 {/* TODO: Gérer l'affichage des points de vie. */}
                                 <div className="font-iceland text-white text-sm">Pdv restant: {game.status}</div>

@@ -38,7 +38,7 @@ export const LobbyContainer: React.FC = () => {
     }
 
     const compareStatus = (a: GameData, b: GameData) => {
-        if (a.status < b.status) {
+        if (parseInt(a.status.toString()) > parseInt(b.status.toString()) && compareCurrentUser(a, b)) {
             return 1;
         } else {
             return -1;
@@ -46,11 +46,12 @@ export const LobbyContainer: React.FC = () => {
     }
 
     const compareCurrentUser = (a: GameData, b: GameData) => {
-        if (a.currentPlayer === authUser) {
+        if (a.currentPlayer.id === authUser.id) {
             return 1;
-        } else {
+        } else if (b.currentPlayer.id === authUser.id) {
             return -1;
         }
+        return 0;
     }
 
     return (
