@@ -125,12 +125,12 @@ export interface GameObjectData {
  * Game data.
  */
 export interface GameData extends ID {
-  author: UserData;
-  currentPlayer: UserData;
+  author: PlayerData;
+  currentPlayer: PlayerData;
   status?: GameStatus;
   code?: string;
   map: MapData;
-  players: UserData[];
+  players: PlayerData[];
   history?: HistoryData[];
 }
 
@@ -143,6 +143,22 @@ export enum GameStatus {
   FINISHED = 2
 }
 
+/**
+ * Player data.
+ */
+export interface PlayerData {
+  user: UserData;
+  character: CharacterData;
+}
+
+/**
+ * Character data.
+ */
+export interface CharacterData {
+  name: string;
+  img: string;
+}
+
 export interface HistoryData {
   player: UserData;
   actions: ActionData[];
@@ -153,7 +169,7 @@ export interface HistoryData {
  */
  export interface ActionData {
   type: ActionType;
-  to?: number;
+  to?: TileData;
   spell?: Spell;
   direction?: Direction;
 }

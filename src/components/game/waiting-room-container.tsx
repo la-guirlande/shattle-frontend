@@ -22,7 +22,7 @@ export const WaitingRoomContainer: FC<WaitingRoomContainerProps> = ({ game, onSt
                     <div className='font-iceland text-2xl text-white'>Liste des joueurs</div>
                     <ul>
                         {game.players.map((player, i) => (
-                            <li key={i}><div className='font-iceland text-xl text-white'>* {player.name}</div></li>
+                            <li key={i}><div className='font-iceland text-xl text-white'>* {player.user.name}</div></li>
                         ))}
                     </ul>
                 </div>

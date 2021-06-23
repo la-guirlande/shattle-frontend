@@ -8,6 +8,6 @@ export interface PlayingContainer {
 
 export const PlayingContainer: FC<PlayingContainer> = ({ game }) => {
   return (
-    <MapCanvas map={game.map} width={game.map.config?.width * game.map.config.tilewidth} height={game.map.config.height * game.map.config.tileheight} />
+    <MapCanvas game={game} width={game.map.config?.width * game.map.config.tilewidth} height={game.map.config.height * game.map.config.tileheight} />
   );
 }
