@@ -22,7 +22,7 @@ export const ListGames: React.FC<ListGamesProps> = (props) => {
                                     {game.status === GameStatus.WAITING ?
                                         'Cette partie n\'a pas débuté.'
                                         :
-                                        game.currentPlayer?.id === authUser?.id ? `C'est votre tour !` : `C'est le tour de ${game.currentPlayer?.name} !`}
+                                        game.currentPlayer?.user?.id === authUser?.id ? `C'est votre tour !` : `C'est le tour de ${game.currentPlayer?.user?.name} !`}
                                 </div>
                                 {/* TODO: Gérer l'affichage des points de vie. */}
                                 <div className="font-iceland text-white text-sm">Pdv restant: {game.status}</div>

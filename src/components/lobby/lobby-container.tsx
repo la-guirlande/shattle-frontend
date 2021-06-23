@@ -6,7 +6,7 @@ import { ListGames } from "./list-games";
 import { GameData, GameStatus } from "../../util/types/data-types";
 import { Status, useQuery } from "../../hooks/query-hooks";
 import { GamesResponse } from "../../util/types/response-types";
-import { generatePath, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 export const LobbyContainer: React.FC = () => {
     const { authUser } = useContext(AuthenticationContext);
@@ -48,9 +48,9 @@ export const LobbyContainer: React.FC = () => {
     }
 
     const compareCurrentUser = (a: GameData, b: GameData) => {
-        if (a.currentPlayer.id === authUser.id) {
+        if (a.currentPlayer.user.id === authUser.id) {
             return 1;
-        } else if (b.currentPlayer.id === authUser.id) {
+        } else if (b.currentPlayer.user.id === authUser.id) {
             return -1;
         }
         return 0;
