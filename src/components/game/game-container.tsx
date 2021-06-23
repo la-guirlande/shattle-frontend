@@ -11,11 +11,15 @@ import { PlayContainer } from './play-container';
 import { PlayingContainer } from './playing-container';
 import { WaitingRoomContainer } from './waiting-room-container';
 
-export const GameContainer: FC = () => {
+export interface GameContainerProps {
+  id: string;
+}
+
+export const GameContainer: FC<GameContainerProps> = ({ id }) => {
   const { authUser } = useContext(AuthenticationContext);
   const { socket } = useContext(WebsocketContext);
   const createGameQuery = useQuery<GameCreationResponse>();
-  const [game, refreshGame] = useGame();
+  const [game, refreshGame] = useGame(id);
 
   useEffect(() => {
     if (socket != null) {
