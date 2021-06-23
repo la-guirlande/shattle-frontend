@@ -1,11 +1,11 @@
 import { FC, HTMLProps, useEffect, useMemo, useRef } from 'react';
 import { MapData } from '../../util/types/data-types';
 
-export interface GameCanvasProps extends HTMLProps<HTMLCanvasElement> {
+export interface MapCanvasProps extends HTMLProps<HTMLCanvasElement> {
   map: MapData;
 }
 
-export const GameCanvas: FC<GameCanvasProps> = ({ map, ...rest }) => {
+export const MapCanvas: FC<MapCanvasProps> = ({ map, ...rest }) => {
   const canvasRef = useRef<HTMLCanvasElement>();
   let animationFrameId: number;
 
