@@ -32,9 +32,11 @@ export const LobbyContainer: React.FC = () => {
         history.push('/game');
     }
 
-    const handleLaunchGame = (data: GameData) => {
-        // TODO: Get game id from list game
-        console.log(data.status)
+    const handleLaunchGame = (game: GameData) => {
+        history.push({
+            pathname: '/game',
+            search: `?id=${game.id}`
+        });
     }
 
     const compareStatus = (a: GameData, b: GameData) => {
@@ -81,7 +83,7 @@ export const LobbyContainer: React.FC = () => {
                         .sort((a, b) => compareStatus(a, b))
                         .sort((a, b) => compareCurrentUser(a, b))
                     }
-                        launchGame={handleLaunchGame} />
+                        onSelect={handleLaunchGame} />
                     : <></>}
             </div>
         </div>
