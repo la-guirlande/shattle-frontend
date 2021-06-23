@@ -91,11 +91,21 @@ export interface GameResponse extends Response {
 /**
  * History response data interface.
  * 
- * This API response is returned by `GET /games`.
+ * This API response is returned by `GET /games/:id/history`.
  */
  export interface HistoryResponse extends Response {
   history: HistoryData[];
 }
+
+/**
+ * Game creation response data interface.
+ * 
+ * This API response is returned by `POST /games`.
+ */
+export interface GameCreationResponse extends CreationResponse {
+  code: string;
+}
+
 /**
  * Signin response data interface.
  * 
