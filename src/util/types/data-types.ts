@@ -169,7 +169,7 @@ export interface HistoryData {
  */
  export interface ActionData {
   type: ActionType;
-  to?: number;
+  to?: TileData;
   spell?: Spell;
   direction?: Direction;
 }
