@@ -3,7 +3,7 @@ import { useGame } from '../../hooks/game-hook';
 import { Status, useQuery } from '../../hooks/query-hooks';
 import { Config } from '../../util/config';
 import { LocalStorageKey } from '../../util/local-storage';
-import { GameStatus } from '../../util/types/data-types';
+import { ActionData, GameStatus } from '../../util/types/data-types';
 import { GameCreationResponse } from '../../util/types/response-types';
 import { AuthenticationContext } from '../contexts/authentication-context';
 import { WebsocketContext } from '../contexts/websocket-context';
@@ -35,11 +35,15 @@ export const GameContainer: FC<GameContainerProps> = ({ code }) => {
       socket.on('game.start', ({ gameId }) => {
         refreshGame(gameId);
       });
+      socket.on('player.round', ({ gameId, history }) => {
+        refreshGame(gameId);
+      });
       socket.on('error', console.error);
     }
     return () => {
       socket.off('game.join');
       socket.off('game.start');
+      socket.off('player.round');
       socket.off('error');
     }
   }, [socket]);
@@ -67,11 +71,15 @@ export const GameContainer: FC<GameContainerProps> = ({ code }) => {
     socket.emit('game.start', { userId: authUser.id, gameId: game.id });
   }
 
+  const handleEndRound = (actions: ActionData[]) => {
+    socket.emit('player.round', { userId: authUser.id, gameId: game.id, actions });
+  }
+
   return (
     <>
       {game == null && <PlayContainer onCreate={handleCreateGame} onJoin={handleJoinGame} />}
       {game && game.status === GameStatus.WAITING && <WaitingRoomContainer game={game} onStartGame={handleStartGame} />}
-      {game && game.status === GameStatus.IN_PROGRESS && <PlayingContainer game={game} />}
+      {game && game.status === GameStatus.IN_PROGRESS && <PlayingContainer game={game} onEndRound={handleEndRound} />}
     </>
   );
 }
