@@ -1,79 +1,85 @@
-import { FC, useContext, useEffect, useRef, useState } from 'react';
-import { useHistory } from 'react-router-dom';
+import { FC, useContext, useEffect } from 'react';
+import { useGame } from '../../hooks/game-hook';
 import { Status, useQuery } from '../../hooks/query-hooks';
 import { Config } from '../../util/config';
 import { LocalStorageKey } from '../../util/local-storage';
-import { GameData } from '../../util/types/data-types';
-import { GameResponse } from '../../util/types/response-types';
-import { Button } from '../button';
+import { ActionData, GameStatus } from '../../util/types/data-types';
+import { GameCreationResponse } from '../../util/types/response-types';
 import { AuthenticationContext } from '../contexts/authentication-context';
 import { WebsocketContext } from '../contexts/websocket-context';
+import { PlayContainer } from './play-container';
+import { PlayingContainer } from './playing-container';
+import { WaitingRoomContainer } from './waiting-room-container';
 
-export const GameContainer: FC = () => {
+export interface GameContainerProps {
+  code: string;
+}
+
+export const GameContainer: FC<GameContainerProps> = ({ code }) => {
   const { authUser } = useContext(AuthenticationContext);
   const { socket } = useContext(WebsocketContext);
-  const gameQuery = useQuery<GameResponse>();
-  const [game, setGame] = useState<GameData>(null);
-  const inputRef = useRef<HTMLInputElement>();
-  const history = useHistory();
+  const createGameQuery = useQuery<GameCreationResponse>();
+  const [game, refreshGame] = useGame();
+
+  useEffect(() => {
+    if (code) {
+      handleJoinGame(code);
+    }
+  }, []);
 
   useEffect(() => {
     if (socket != null) {
-      socket.on('game.join', ({ gameId }) => {
-        gameQuery.get(`${Config.API_URL}/games/${gameId}`);
-        history.push(`/game/${gameId}`);
+      socket.on('game.join', ({ gameId, userId }) => {
+        refreshGame(gameId);
       });
-      socket.on('game.start', console.log);
+      socket.on('game.start', ({ gameId }) => {
+        refreshGame(gameId);
+      });
+      socket.on('player.round', ({ gameId, history }) => {
+        refreshGame(gameId);
+      });
       socket.on('error', console.error);
-      return () => {
-        socket.off('game.join');
-        socket.off('game.start');
-        socket.off('error');
-      }
+    }
+    return () => {
+      socket.off('game.join');
+      socket.off('game.start');
+      socket.off('player.round');
+      socket.off('error');
     }
   }, [socket]);
 
   useEffect(() => {
-    switch (gameQuery.status) {
+    switch (createGameQuery.status) {
       case Status.SUCCESS:
-        setGame(gameQuery.response.game);
+        handleJoinGame(createGameQuery.response.code);
         break;
       case Status.ERROR:
-        console.error(gameQuery.errorResponse.errors);
+        console.error(createGameQuery.errorResponse.errors);
         break;
     }
-  }, [gameQuery.status]);
-
-  const handleJoinGame = () => {
-    socket.emit('game.join', { code: inputRef.current.value, accessToken: localStorage.getItem(LocalStorageKey.ACCESS_TOKEN) });
-  }
+  }, [createGameQuery.status]);
 
   const handleCreateGame = () => {
-    if (authUser) {
-      const body = {
-        player: authUser.id,
-      }
-      gameQuery.post(`${Config.API_URL}/games`, body);
-    }
+    createGameQuery.post(`${Config.API_URL}/games`, { player: authUser.id });
+  }
+
+  const handleJoinGame = (code: string) => {
+    socket.emit('game.join', { code, accessToken: localStorage.getItem(LocalStorageKey.ACCESS_TOKEN) });
+  }
+
+  const handleStartGame = () => {
+    socket.emit('game.start', { userId: authUser.id, gameId: game.id });
+  }
+
+  const handleEndRound = (actions: ActionData[]) => {
+    socket.emit('player.round', { userId: authUser.id, gameId: game.id, actions });
   }
 
   return (
-    <div className='bg-gradient-to-b from-secondary to-primary h-screen pt-10'>
-      <div className='bg-map w-5/6 h-5/6 sm:h-3/6 mx-auto rounded-2xl' id='map'>
-        <div className='bg-white bg-opacity-25 border-2 border-white rounded-lg mx-auto flex justify-center w-6/12'>
-          <Button className="font-iceland text-3xl text-white" onClick={handleCreateGame}>
-            Créer une partie
-          </Button>
-        </div>
-        <div>
-          <div className='mx-auto flex justify-center w-6/12 pb-5'>
-            <input className='border-2 border-primary rounded-lg' ref={inputRef} type="text" placeholder="Game code" />
-          </div>
-          <div className='bg-white bg-opacity-25 border-2 border-white rounded-lg mx-auto flex justify-center w-6/12 '>
-            <Button className='font-iceland text-3xl text-white' onClick={handleJoinGame}>Rejoindre une partie</Button>
-          </div>
-        </div>
-      </div>
-    </div>
+    <>
+      {game == null && <PlayContainer onCreate={handleCreateGame} onJoin={handleJoinGame} />}
+      {game && game.status === GameStatus.WAITING && <WaitingRoomContainer game={game} onStartGame={handleStartGame} />}
+      {game && game.status === GameStatus.IN_PROGRESS && <PlayingContainer game={game} onEndRound={handleEndRound} />}
+    </>
   );
 }

@@ -1,11 +1,12 @@
 import { FC, HTMLProps, useEffect, useMemo, useRef } from 'react';
-import { MapData } from '../../util/types/data-types';
+import { GameData } from '../../util/types/data-types';
 
-export interface GameCanvasProps extends HTMLProps<HTMLCanvasElement> {
-  map: MapData;
+export interface MapCanvasProps extends HTMLProps<HTMLCanvasElement> {
+  game: GameData;
 }
 
-export const GameCanvas: FC<GameCanvasProps> = ({ map, ...rest }) => {
+export const MapCanvas: FC<MapCanvasProps> = ({ game, ...rest }) => {
+  const { map } = game;
   const canvasRef = useRef<HTMLCanvasElement>();
   let animationFrameId: number;
 
@@ -50,6 +51,14 @@ export const GameCanvas: FC<GameCanvasProps> = ({ map, ...rest }) => {
         if (tile === mapTiles.length) {
           currentLayer++;
           tile = 0;
+        }
+      } else {
+        for (let i = 0; i < game.players.length; i++) {
+          const player = game.players[i];
+          const characterImg = new Image();
+          characterImg.src = player.character.img;
+          const tile = game.history[i].actions[0].to;
+          ctx.drawImage(characterImg, 0, 0, 16, 16, tile.x, tile.y, tile.width, tile.height);
         }
       }
       animationFrameId = window.requestAnimationFrame(render);
