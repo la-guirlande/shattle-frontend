@@ -81,38 +81,11 @@ self.addEventListener('message', (event) => {
 
 //NOTIF
 
-const urlBase64ToUint8Array = (base64String: string) => {
-  const padding = '='.repeat((4 - base64String.length % 4) % 4);
-  const base64 = (base64String + padding)
-    .replace(/\-/g, '+')
-    .replace(/_/g, '/')
-  const rawData = window.atob(base64);
-  const outputArray = new Uint8Array(rawData.length);
-  for (let i = 0; i < rawData.length; ++i) {
-    outputArray[i] = rawData.charCodeAt(i);
-  }
-  return outputArray;
-}
-
-function determineAppServerKey() {
-  const PUBLIC_VAPID_KEY = 'BFQFlmmR34pogomIqxakJ8IXpN28CGkBjwMFUJrhBNQINT9M906ETTotms_Hnw_rPHp7ZqXGG6CK6iBTBVcHJb4'
-  return urlBase64ToUint8Array(PUBLIC_VAPID_KEY)
-}
-
-(async function () {
-  const registration = await navigator.serviceWorker.ready
-  const souscription = await registration.pushManager.subscribe({
-    userVisibleOnly: true,
-    applicationServerKey: determineAppServerKey()
-  });
-})();
-
 self.addEventListener('push', event => {
   const data = event.data.json()
   console.log('New notification', data)
   const options = {
-    body: data.body,
-    icon: data.icon
+    body: data.body
   }
   event.waitUntil(
     self.registration.showNotification(data.title, options)
