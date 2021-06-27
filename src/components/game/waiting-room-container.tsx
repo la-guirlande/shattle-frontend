@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { GameData } from "../../util/types/data-types";
 import { Button } from "../button";
+import ReturnButton from '../navigation/return-button';
 
 export interface WaitingRoomContainerProps {
     game: GameData;
@@ -10,6 +11,7 @@ export interface WaitingRoomContainerProps {
 export const WaitingRoomContainer: FC<WaitingRoomContainerProps> = ({ game, onStartGame }) => {
     return (
         <div className='bg-gradient-to-b from-secondary to-primary h-screen pt-10'>
+            <ReturnButton />
             <div className='font-iceland text-white text-5xl mx-auto flex text-center justify-center w-6/12 pb-5'>
                 En attente d'autre joueur
             </div>

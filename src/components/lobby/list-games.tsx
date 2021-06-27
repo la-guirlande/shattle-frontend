@@ -11,7 +11,7 @@ export const ListGames: React.FC<ListGamesProps> = (props) => {
     const { authUser } = useContext(AuthenticationContext);
 
     return (
-        <div className="px-8 sm:px-24 lg:px-36 xl:px-56">
+        <div className="px-8 sm:px-24 lg:px-36 xl:px-56 mb-12">
             <ul className="flex flex-col p-4">
                 {props.games?.map((game, i) => (
                     <li key={i} className=" mb-2" onClick={() => props.onSelect(game)}>

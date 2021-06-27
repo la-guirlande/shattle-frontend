@@ -3,6 +3,7 @@ import { FC, useContext, useMemo, useState } from 'react';
 import { ActionData, ActionType, GameData, TileData } from '../../util/types/data-types';
 import { Button } from '../button';
 import { AuthenticationContext } from '../contexts/authentication-context';
+import ReturnButton from '../navigation/return-button';
 import { MapCanvas } from './map-canvas';
 
 export interface PlayingContainer {
@@ -30,6 +31,7 @@ export const PlayingContainer: FC<PlayingContainer> = ({ game, onEndRound }) => 
 
   return (
     <>
+    <ReturnButton />
       <MapCanvas game={game} width={game.map.config?.width * game.map.config.tilewidth} height={game.map.config.height * game.map.config.tileheight} />
       <Button onClick={() => onEndRound(actions)}>Terminer le tour</Button>
       <Button onClick={() => handleMove(game.map.mapTiles[_.random(0, game.map.mapTiles.length - 1)])}>Move (WIP)</Button>

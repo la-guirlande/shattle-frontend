@@ -7,6 +7,7 @@ import { ActionData, GameStatus } from '../../util/types/data-types';
 import { GameCreationResponse } from '../../util/types/response-types';
 import { AuthenticationContext } from '../contexts/authentication-context';
 import { WebsocketContext } from '../contexts/websocket-context';
+import BottomNavbar from '../navigation/bottom-navbar';
 import { PlayContainer } from './play-container';
 import { PlayingContainer } from './playing-container';
 import { WaitingRoomContainer } from './waiting-room-container';
@@ -80,6 +81,7 @@ export const GameContainer: FC<GameContainerProps> = ({ code }) => {
       {game == null && <PlayContainer onCreate={handleCreateGame} onJoin={handleJoinGame} />}
       {game && game.status === GameStatus.WAITING && <WaitingRoomContainer game={game} onStartGame={handleStartGame} />}
       {game && game.status === GameStatus.IN_PROGRESS && <PlayingContainer game={game} onEndRound={handleEndRound} />}
+      <BottomNavbar />
     </>
   );
 }
