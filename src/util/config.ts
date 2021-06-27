@@ -2,6 +2,6 @@
  * Global configuration enumeration.
  */
  export enum Config {
-    API_URL = 'http://localhost',
-    WEBSOCKET_URL = 'http://localhost:8000'
+    API_URL = 'https://shattle-backend.herokuapp.com',
+    WEBSOCKET_URL = 'https://shattle-backend.herokuapp.com:8000'
 }
