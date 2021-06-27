@@ -1,6 +1,7 @@
 import React from 'react';
 import { Switch } from 'react-router';
 import { BrowserRouter, Route } from 'react-router-dom';
+import { AccountPage } from '../pages/account-page';
 import { GamePage } from '../pages/game-page';
 import { LobbyPage } from '../pages/lobby-page';
 import { LoginPage } from '../pages/login-page';
@@ -20,6 +21,9 @@ const App: React.FC = () => (
           </Route>
           <Route exact path='/game'>
             <GamePage />
+          </Route>
+          <Route exact path='/account'>
+            <AccountPage />
           </Route>
         </Switch>
       </BrowserRouter>
