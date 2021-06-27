@@ -93,14 +93,19 @@ const urlBase64ToUint8Array = (base64String: string) => {
   }
   return outputArray;
 }
-  (async function () {
-    const PUBLIC_VAPID_KEY = 'BFQFlmmR34pogomIqxakJ8IXpN28CGkBjwMFUJrhBNQINT9M906ETTotms_Hnw_rPHp7ZqXGG6CK6iBTBVcHJb4'
-    const registration = await navigator.serviceWorker.ready;
-    const souscription = await registration.pushManager.subscribe({
-      userVisibleOnly: true,
-      applicationServerKey: urlBase64ToUint8Array(PUBLIC_VAPID_KEY),
-    });
-  })();
+
+function determineAppServerKey() {
+  const PUBLIC_VAPID_KEY = 'BFQFlmmR34pogomIqxakJ8IXpN28CGkBjwMFUJrhBNQINT9M906ETTotms_Hnw_rPHp7ZqXGG6CK6iBTBVcHJb4'
+  return urlBase64ToUint8Array(PUBLIC_VAPID_KEY)
+}
+
+(async function () {
+  const registration = await navigator.serviceWorker.ready
+  const souscription = await registration.pushManager.subscribe({
+    userVisibleOnly: true,
+    applicationServerKey: determineAppServerKey()
+  });
+})();
 
 self.addEventListener('push', event => {
   const data = event.data.json()
