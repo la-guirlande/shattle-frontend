@@ -3,8 +3,9 @@ import { useGame } from '../../hooks/game-hook';
 import { Status, useQuery } from '../../hooks/query-hooks';
 import { Config } from '../../util/config';
 import { LocalStorageKey } from '../../util/local-storage';
+import { askNotificationPermission, determineAppServerKey } from '../../util/notif-permission';
 import { ActionData, GameStatus } from '../../util/types/data-types';
-import { GameCreationResponse } from '../../util/types/response-types';
+import { CreationResponse, GameCreationResponse } from '../../util/types/response-types';
 import { AuthenticationContext } from '../contexts/authentication-context';
 import { WebsocketContext } from '../contexts/websocket-context';
 import { PlayContainer } from './play-container';
@@ -19,6 +20,7 @@ export const GameContainer: FC<GameContainerProps> = ({ code }) => {
   const { authUser } = useContext(AuthenticationContext);
   const { socket } = useContext(WebsocketContext);
   const createGameQuery = useQuery<GameCreationResponse>();
+  const subscriptionQuery = useQuery<CreationResponse>();
   const [game, refreshGame] = useGame();
 
   useEffect(() => {
@@ -73,13 +75,26 @@ export const GameContainer: FC<GameContainerProps> = ({ code }) => {
 
   const handleEndRound = (actions: ActionData[]) => {
     socket.emit('player.round', { userId: authUser.id, gameId: game.id, actions });
+    askNotificationPermission(async () => {
+      let registration = await navigator.serviceWorker.ready;
+      try {
+        let subscription = await registration.pushManager.subscribe({
+          userVisibleOnly: true,
+          applicationServerKey: determineAppServerKey()
+        });
+        subscriptionQuery.post(`${Config.API_URL}/notifications/subscribe`, {subscription});
+      }
+      catch (e) {
+        console.error("Could not subscribe to notifications : ", e);
+      }
+    })
   }
 
   return (
-    <>
-      {game == null && <PlayContainer onCreate={handleCreateGame} onJoin={handleJoinGame} />}
-      {game && game.status === GameStatus.WAITING && <WaitingRoomContainer game={game} onStartGame={handleStartGame} />}
-      {game && game.status === GameStatus.IN_PROGRESS && <PlayingContainer game={game} onEndRound={handleEndRound} />}
-    </>
-  );
-}
+      <>
+        {game == null && <PlayContainer onCreate={handleCreateGame} onJoin={handleJoinGame} />}
+        {game && game.status === GameStatus.WAITING && <WaitingRoomContainer game={game} onStartGame={handleStartGame} />}
+        {game && game.status === GameStatus.IN_PROGRESS && <PlayingContainer game={game} onEndRound={handleEndRound} />}
+      </>
+    );
+  }
